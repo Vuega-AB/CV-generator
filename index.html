@@ -64,8 +64,8 @@
                 <h2>The Best CV Maker Online.</h2>
                 <p class="lead">If a sheet of paper represents your entire work life, personality, and skills, it better be a pretty amazing piece of paper — Let's do the heavy lifting.</p>
                 <p class="lead">Create your professional CV with ease.</p>
-                <form id="cvForm" method="post" action="./generateCV.html">
-                    <button type="submit" class="btn btn-get-started btn-lg">Get Started</button>
+                <form id="cvForm" method="post">
+                    <button type="submit" class="btn btn-get-started btn-lg" onclick="redirectToCVGenerator()">Get Started</button>
                 </form>                
             </div>
             <div class="col-md-6">
@@ -75,5 +75,12 @@
     </div>
     <div class="bottom-bar">
     </div>
+    <script>
+        // Function to redirect to the CV generator page
+        function redirectToCVGenerator() {
+            // Redirect to the desired page (generateCV.html)
+            window.location.href = './generateCV.html';
+        }
+    </script>
 </body>
 </html>
