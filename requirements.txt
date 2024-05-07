@@ -1,0 +1,4 @@
+Flask==2.0.2            # Web framework for serving Python web applications
+gunicorn==20.1.0        # WSGI HTTP server for production deployments
+requests==2.26.0        # Library for making HTTP requests
+openai==0.10.4          # Python client for OpenAI API
