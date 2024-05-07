@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav class="navbar navbar-expand-lg py-4">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="CV Maker Logo">
+                <strong> CV Maker</strong>
+            </a>
+            
+        </nav>
+        <input type="text" id="apiKeyInput" class="form-control" placeholder="Enter API Key">
+        <ul>
+            <li><a href="#personal-info">Personal Information</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Work Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <!-- Personal Information Section -->
+        <form id="cvForm" method="post" action="/generateCV">
+            <div id="personal-info" class="rounded border shadow p-4 mb-4">
+                <h2>Personal Information</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fullName">Full Name:</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" name="phone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="image-container">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" id="uploadedImage" alt="Uploaded Image" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="custom-file-input" id="uploadImageInput" onchange="previewImage(event)">
+                            <label for="uploadImageInput" class="btn btn-secondary mt-3 custom-upload-button">Upload Image</label>
+                        </div>
+                        
+                    </div>
+                    <script>
+                        function previewImage(event) {
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                var output = document.getElementById('uploadedImage');
+                                output.src = reader.result;
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="rounded border shadow p-4 mb-4">
+                <h2>Education</h2>
+                <div class="form-group" >
+                    <label for="education">Education:</label>
+                    <textarea id="education" name="education" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="rounded border shadow p-4 mb-4">
+                <h2>Skills</h2>
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <textarea id="skills" name="skills" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="rounded border shadow p-4 mb-4">
+                <h2>Projects</h2>
+                <div class="form-group">
+                    <label for="Projects">Projects:</label>
+                    <textarea id="Projects" name="Projects" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="rounded border shadow p-4 mb-4">
+                <h2>Work Experience</h2>
+                <div class="form-group">
+                    <label for="experience">Work Experience:</label>
+                    <textarea id="experience" name="experience" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- <button type="submit" class="btn btn-primary" onclick="downloadCV()">Generate CV</button> -->
+            <button type="button" class="btn btn-secondary" onclick="showCVPreviewModal()">Preview</button>
+        </form>
+    </div>
+
+    <!-- CV Preview Modal -->
+    <div class="modal fade" id="cvPreviewModal" tabindex="-1" role="dialog" aria-labelledby="cvPreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-light">
+                    <h5 class="modal-title" id="cvPreviewModalLabel">CV Preview</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="border shadow p-4">
+                                    <div class="row">
+                                        <div class="col-md-6 personal-info-section">
+                                            <h2 class="mb-0"></h2>
+                                            <p></p>
+                                            <p></p>
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-6 text-right personal-info-section">
+                                            <img src="" alt="User Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+                                    <div class="row mt-4 education-section">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+                                    <div class="row mt-4 skills-section">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+                                    <div class="row mt-4 projects-section">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+                                    <div class="row mt-4 experience-section">
+                                        <div class="col-md-12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-md-12 text-center">
+                                <button id="downloadCvButton" class="btn btn-primary" onclick="downloadCV()">Download CV as PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+
+    <script>
+        let Name, Email, Phone, Address, Education, Skills, Projects, Experience, Img;
+
+        function getApiKey() {
+            return document.getElementById('apiKeyInput').value.trim(); // Trim any leading/trailing whitespace
+        }
+        
+        function populateCVPreview() {
+            // Gather user input from form fields
+
+            document.querySelector('#cvPreviewModal .personal-info-section h2').textContent = document.getElementById('fullName').value;
+            document.querySelector('#cvPreviewModal .personal-info-section p:nth-of-type(1)').textContent = "Email: " + document.getElementById('email').value;
+            document.querySelector('#cvPreviewModal .personal-info-section p:nth-of-type(2)').textContent = "Phone: " + document.getElementById('phone').value;
+            document.querySelector('#cvPreviewModal .personal-info-section p:nth-of-type(3)').textContent = "Address: " + document.getElementById('address').value;
+            
+            Name = document.getElementById('fullName').value;
+            Email = document.getElementById('email').value;
+            Phone = document.getElementById('phone').value;
+            Address = document.getElementById('address').value;
+
+            // Image
+            var uploadedImage = document.querySelector('#uploadedImage');
+            var modalImage = document.querySelector('#cvPreviewModal .personal-info-section img');
+            modalImage.src = uploadedImage.src;
+            Img = uploadedImage.src;
+            console.log("Img: ", Img);
+
+
+            const educationText = document.getElementById('education').value;
+            const skillsText = document.getElementById('skills').value;
+            const projectsText = document.getElementById('Projects').value;
+            const experienceText = document.getElementById('experience').value;
+
+            // Call ChatGPT API to generate text for each section
+            generateText(educationText, 'education');
+            generateText(skillsText, 'skills');
+            generateText(projectsText, 'projects');
+            generateText(experienceText, 'experience');
+        }
+
+        // Function to call ChatGPT API and update modal content
+        async function generateText(inputText, section) {
+            
+            const apiKey = getApiKey(); // Retrieve API key from input field
+
+            // Check if API key is provided
+            if (!apiKey) {
+                alert('Please enter an API Key.');
+                return;
+            }
+
+            const endpoint = 'https://api.openai.com/v1/chat/completions';
+
+            let prompt;
+
+            switch (section) {
+                case 'education':
+                    prompt = `Rewrite the education section to fit in points the cv format:\n\n${inputText}`;
+                    break;
+                case 'skills':
+                    prompt = `Rewrite the professional skills section in points to fit the cv format : \n\n${inputText}`;
+                    break;
+                case 'projects':
+                    prompt = `Rewrite the projects section in points to fit the cv format:\n\n${inputText}`;
+                    break;
+                case 'experience':
+                    prompt = `Rewrite the work experience in points to fit the cv format:\n\n${inputText}`;
+                    break;
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo', // Use GPT-3.5 model
+                    messages: [
+                        {
+                            role: 'system',
+                            content: 'User: Hello, ChatGPT!'
+                        },
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+                    ]
+                })
+            });
+
+            const data = await response.json();
+            const chatResponse = data.choices[0].message.content.trim(); // Trim any leading/trailing whitespace
+
+            // Split the chatResponse into points
+            const points = chatResponse.split('\n').map(point => point.trim()).filter(Boolean); // Trim each point and remove empty strings
+
+            // Generate HTML for the section
+            const sectionHTML = points.map(point => `<div>${point}</div>`).join('');
+
+            // Update the modal content with generated HTML
+            const sectionElement = document.querySelector(`#cvPreviewModal .modal-body .${section}-section`);
+            sectionElement.innerHTML = `
+                <div class='row mt-4'>
+                    <div class='col-md-12'>
+                        <h4 class='text-dark ml-2'>${section.charAt(0).toUpperCase() + section.slice(1)}</h4>
+                        <ul style='list-style-type: disc; padding-left: 20px;'>${sectionHTML}</ul>
+                    </div>
+                </div>`; 
+
+            if(section == 'education'){
+                Education = points;
+            }
+            else if(section == 'skills'){
+                Skills = points;
+            }
+            else if(section == 'projects'){
+                Projects = points;
+            }
+            else if(section == 'experience'){
+                Experience = points;
+            }
+            
+        }
+
+
+        // Function to check if all required fields are filled
+        function areAllFieldsFilled() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const education = document.getElementById('education').value;
+            const skills = document.getElementById('skills').value;
+            const projects = document.getElementById('Projects').value;
+            const experience = document.getElementById('experience').value;
+            var uploadedImage = document.querySelector('#uploadedImage');
+            var modalImage = document.querySelector('#cvPreviewModal .personal-info-section img');
+            modalImage.src = uploadedImage.src;
+            Img = uploadedImage.src;
+
+            // Check if any of the required fields are empty
+            if (!fullName || !email || !education || !skills || !projects || !experience || Img == 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png') {
+                return false; // Not all fields are filled
+            }
+
+            return true; // All required fields are filled
+        }
+
+        // Function to show the CV preview modal
+        function showCVPreviewModal() {
+            // Check if all required fields are filled
+
+            if (areAllFieldsFilled()) {
+                populateCVPreview();
+                $('#cvPreviewModal').modal('show'); // Assuming you are using jQuery for Bootstrap modal
+            } else {
+                alert('Please fill out all sections before previewing the CV.');
+            }
+        }
+
+        function downloadCV() {
+            // Clone the modal content to work with (without modifying the original)
+            const modalBody = document.querySelector('#cvPreviewModal .modal-body');
+            const contentClone = modalBody.cloneNode(true);
+
+            // Remove unwanted elements (e.g., images, hr elements)
+            const unwantedElements = contentClone.querySelectorAll('img, hr');
+            unwantedElements.forEach(element => {
+                element.remove();
+            });
+
+            // Initialize jsPDF
+            const doc = new jsPDF({
+                orientation: 'portrait', // Set orientation to portrait (default)
+                unit: 'mm', // Use millimeters as the unit for coordinates
+                format: 'a4' // Set the document format to A4
+            });
+
+            // Set initial position for text in PDF
+            let yOffset = 10;
+
+            // Function to add section title and content to PDF
+            function addSection(title, content) {
+                doc.setFont('times', 'bold');
+                doc.setFontSize(14);
+                doc.text(title, 10, yOffset);
+
+                doc.setFont('times', 'normal');
+                doc.setFontSize(12);
+                const textLines = doc.splitTextToSize(content, 180); // Adjust width as needed
+                doc.text(textLines, 10, yOffset + 10); // Adjust x, y coordinates for content
+
+                yOffset += (textLines.length * 5) + 20; // Increase yOffset based on content length
+            }
+
+            // Define sections with titles and content
+            const sections = [
+                {
+                    title: 'Name:',
+                    content: Name
+                },
+                {
+                    title: 'Email:',
+                    content: Email
+                },
+                {
+                    title: 'Phone:',
+                    content: Phone
+                },
+                {
+                    title: 'Address:',
+                    content: Address
+                },
+                {
+                    title: 'Education',
+                    content: Education.join('\n') // Join array items into a single string
+                },
+                {
+                    title: 'Skills',
+                    content: Skills.join('\n') // Join array items into a single string
+                },
+                {
+                    title: 'Projects',
+                    content: Projects.join('\n') // Join array items into a single string
+                },
+                {
+                    title: 'Experience',
+                    content: Experience.join('\n') // Join array items into a single string
+                }
+            ];
+
+            // Add sections to PDF
+            sections.forEach(section => {
+                addSection(section.title, section.content);
+            });
+
+            // Add image to PDF
+            const imgData = Img || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png';
+            const imgWidth = 40; // Width of the image placeholder
+            const imgHeight = 40; // Height of the image placeholder
+            const imgX = doc.internal.pageSize.width - imgWidth - 10; // X-coordinate for image
+            const imgY = 10; // Y-coordinate for image
+            doc.addImage(imgData, 'PNG', imgX, imgY, imgWidth, imgHeight); // Add the image to the PDF
+
+            // Save the PDF file
+            doc.save('cv_preview.pdf');
+        }
+
+
+    </script>
+    
+</body>
+</html>

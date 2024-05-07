@@ -1,0 +1,119 @@
+.sidebar {
+    background-color: #14385e;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px; /* Adjust the width as needed */
+    padding: 0px;
+}
+
+.sidebar h4 {
+    margin-top: 0;
+}
+
+/* Custom styles to shift navbar brand to the left */
+.navbar-brand{
+    margin-right: 200px;
+}
+.navbar-brand img {
+    height: 40px; /* Adjust the height of the image */
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+.navbar-brand strong {
+    font-weight: bold; /* Make the text bold */
+    margin-left: 5px;
+    color: white;
+}
+
+/* Custom background color for the navbar */
+.sidebar .navbar {
+    background-color: #14385e; /* Match the sidebar's background color */
+}
+
+.sidebar ul li {
+    margin-bottom: 10px; /* Add margin bottom to create space between sections */
+}
+
+.sidebar ul li a {
+    color: white; /* Set the color of the links to white */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.main-content {
+    margin-left: 220px; /* Adjust the margin to leave space for the sidebar */
+    padding: 20px;
+}
+
+/* Custom styles for form fields */
+.form-group {
+    margin-bottom: 20px; /* Add margin bottom to create space between form fields */
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.image-container {
+    width: 250px; /* Set the width of the container */
+    height: 250px; /* Set the height of the container */
+    border: 1px solid #ced4da; /* Add a border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    overflow: hidden; /* Hide overflow content */
+    margin-left: 300px; /* Add margin left */
+    margin-top: 20px; /* Add margin top to shift the container down */
+}
+
+.img-fluid {
+    width: 100%; /* Make the image width 100% of the container */
+    height: 100%; /* Make the image height 100% of the container */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+
+
+.divider {
+    border-top: 2px solid #ccc;
+}
+ /* Add custom styles for personal info section */
+ .personal-info-section {
+    width: 100%; /* Ensure the section spans the entire width */
+    color: #000000; /* Change text color if needed */
+    padding: 20px; /* Adjust padding as needed */
+    margin-top: -25px; /* Move section away from other content */
+}
+
+/* Adjust styles for modal content */
+.modal-content {
+    border-radius: 0; /* Optional: Remove border radius if not desired */
+}
+
+/* Add custom styles for personal info text */
+.personal-info-section h2,
+.personal-info-section p {
+    color: #000000; /* Change text color if needed */
+}/* Adjust container padding */
+
+/* Style for the file input */
+.custom-file-input {
+    display: none; /* Hide the default file input */
+}
+
+/* Style for the custom button */
+.custom-upload-button {
+    margin-left: 360px;
+    background-color: #FFA500;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+#apiKeyInput {
+    width: 150px; /* Adjust width as needed */
+    font-size: 14px; /* Adjust font size */
+    margin-left: 30px;
+    margin-top: 2px;
+}
+
